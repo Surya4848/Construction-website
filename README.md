@@ -29,14 +29,17 @@ You are prompted for the password (min 12 characters). Run it again to reset a p
 
 ## 4. Frontend
 ```
+cd frontend
 cp .env.example .env               # VITE_API_URL=http://localhost:8000/api
 npm install
 npm run dev                        # http://localhost:5173
 ```
 Admin dashboard: http://localhost:5173/admin (login at /admin/login).
 
+In VS Code, use **Terminal > Run Task** to start **Frontend: Vite** and **Backend: FastAPI** in separate terminals. **Run Frontend and Backend** starts both tasks together. The backend task requires a running MongoDB instance.
+
 ## How content flows
-Services, projects, gallery, published testimonials and website settings are loaded from the API. If the API is unreachable, or a list is empty, the site shows the built-in placeholder content from `src/data/site.js`, so it never appears broken. Testimonials are the exception: with the API online and none published, the section is hidden. Contact-form submissions are saved as enquiries (status New) and appear in the admin.
+Services, projects, gallery, published testimonials and website settings are loaded from the API. If the API is unreachable, or a list is empty, the site shows the built-in placeholder content from `frontend/src/data/site.js`, so it never appears broken. Testimonials are the exception: with the API online and none published, the section is hidden. Contact-form submissions are saved as enquiries (status New) and appear in the admin.
 
 ## Security notes
 - All `/api/admin/*` routes require a valid JWT (`Authorization: Bearer`); login and public enquiry submission are rate limited per IP (in-memory, per process; use a shared store such as Redis if you run several workers).
@@ -46,6 +49,7 @@ Services, projects, gallery, published testimonials and website settings are loa
 
 ## Structure
 ```
-backend/app/{core,database,models,schemas,services,routes}  backend/create_admin.py
-src/admin  dashboard   src/lib/api.js  Axios client   src/context/SiteContext.jsx  public content loader
+frontend/  React/Vite website, admin dashboard and frontend dependencies
+backend/app/{core,database,models,schemas,services,routes}  FastAPI API
+backend/create_admin.py  initial-admin utility
 ```

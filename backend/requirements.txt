@@ -1,0 +1,9 @@
+fastapi>=0.115
+uvicorn[standard]>=0.30
+pymongo>=4.8
+PyJWT>=2.9
+pwdlib[argon2]>=0.2
+pydantic[email]>=2.8
+python-multipart>=0.0.9
+cloudinary>=1.41
+python-dotenv>=1.0
